@@ -35,8 +35,8 @@ function AppViewModel() {
         self.bindEvents();
     };
 
-    self.bindEvents = function() {
-        $(document).bind("deviceready", self.onDeviceReady, false);
+    self.bindEvents = function () {
+        document.addEventListener("deviceready", self.onDeviceReady, false);
     };
 
     self.onDeviceReady = function() {
