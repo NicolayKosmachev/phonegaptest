@@ -24,7 +24,7 @@ function AppViewModel() {
     //Routes
     hostUrl = 'http://10.10.4.147',
 
-    getFilesUrl = '/api/Files';
+    getFilesUrl = hostUrl + '/api/Files';
     
     //properties
     self.files =  ko.mapping.fromJS([{name:"test",location:"testlocation"}]);
