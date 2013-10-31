@@ -16,34 +16,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function () {
 
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+function AppViewModel() {
+    var self = this,
 
-        console.log('Received Event: ' + id);
-    }
-};
+    //Routes
+    hostUrl = 'http://localhost:7768',
+
+    getFilesUrl = hostUrl + '/api/Files';
+    
+    //properties
+    self.files =  ko.mapping.fromJS([{name:"test",location:"testlocation"}]);
+    
+
+    //methods
+    self.initialize = function() {
+        self.bindEvents();
+    };
+
+    self.bindEvents = function() {
+        $(document).bind("deviceready", self.onDeviceReady, false);
+    };
+
+    self.onDeviceReady = function() {
+        self.updateFiles();
+    };
+
+    self.updateFiles = function() {
+        self.files.removeAll();
+
+        self.getFiles().done(function(data) {
+            //alert(data);
+            ko.mapping.fromJS(data, self.files);
+
+            //$.each(data, function (index, item) {
+            //    self.files.push({name : item.name,location:item.location});
+            //});
+
+        });
+    };
+
+    //data access
+    
+    self.getFiles = function (data) {
+        return $.ajax(getFilesUrl, {
+            data: data,
+        });
+    };
+    
+}
+
+
+

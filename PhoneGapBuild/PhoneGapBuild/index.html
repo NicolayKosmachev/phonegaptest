@@ -40,8 +40,7 @@
                       <a data-role="button" data-inline="true" data-theme="b" href="#page1">
                           Login
                       </a>
-                      <a id="checkFiles" data-role="button" data-inline="true" data-theme="b"
-                         href="#page1">
+                      <a id="checkFiles" data-role="button" data-bind = "click:updateFiles" data-inline="true" data-theme="b" href="#page1">
                           Check Files
                       </a>
                       <div id="FilesContainer" data-role="collapsible-set">
@@ -49,7 +48,14 @@
                               <h3>
                                   Your Files
                               </h3>
-                              <div id="allRepos">trololo</div>
+                             
+                              <ul data-bind="foreach:files">
+                                  <li>
+                                      <span data-bind ="text:name"></span>
+                                      <span data-bind ="text:location"></span>
+                                  </li>
+                              </ul>
+
                           </div>
                       </div>
                   </div>
@@ -65,12 +71,20 @@
         <script type="text/javascript" src="phonegap.js"></script>
         <script src="Scripts/jquery-2.0.3.min.js"></script>
         <script src="Scripts/jquery.mobile-1.3.2.min.js"></script>
-
+        <script src="Scripts/knockout-3.0.0.js"></script>
+        <script src="Scripts/knockout.mapping.js"></script>
+        
         <script src="Scripts/index.js"></script>
         
 
         <script type="text/javascript">
-            app.initialize();
+            $(function () {
+                var app = new AppViewModel();
+
+                app.initialize();
+
+                ko.applyBindings(app);
+            });
         </script>
     </body>
 </html>
