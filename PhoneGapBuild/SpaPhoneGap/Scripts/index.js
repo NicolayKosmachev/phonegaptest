@@ -20,15 +20,48 @@
 
 function AppViewModel() {
     var self = this,
-
-    //Routes
-    hostUrl = 'http://10.10.4.147',
-
-    getFilesUrl = hostUrl + '/api/Files';
+        //Routes
+        hostUrl = 'http://10.10.4.147',
+        getFilesUrl = /* hostUrl +*/ '/api/Files',
+        loginUrl = "/Token";
     
     //properties
     self.files =  ko.mapping.fromJS([{name:"test",location:"testlocation"}]);
     
+
+    function getSecurityHeaders() {
+        var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
+
+        if (accessToken) {
+            return { "Authorization": "Bearer " + accessToken };
+        }
+
+        return {};
+    }
+
+    self.setAccessToken = function (accessToken, persistent) {
+        if (persistent) {
+            localStorage["accessToken"] = accessToken;
+        } else {
+            sessionStorage["accessToken"] = accessToken;
+        }
+    };
+
+    self.userName = ko.observable("KoKos");
+
+    self.password = ko.observable("qweqwe");
+
+    self.login = function() {
+        self.postLoginData({
+            grant_type: "password",
+            username: self.userName(),
+            password: self.password()
+        }).done(function(data) {
+            if (data.userName && data.access_token) {
+                self.setAccessToken(data.access_token);
+            }
+        });
+    };
 
     //methods
     self.initialize = function() {
@@ -62,6 +95,14 @@ function AppViewModel() {
     self.getFiles = function (data) {
         return $.ajax(getFilesUrl, {
             data: data,
+            headers : getSecurityHeaders()
+        });
+    };
+    
+    self.postLoginData = function (data) {
+        return $.ajax(loginUrl, {
+            type: "POST",
+            data: data
         });
     };
     
