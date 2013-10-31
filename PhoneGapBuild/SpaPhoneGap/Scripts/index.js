@@ -58,7 +58,7 @@ function AppViewModel() {
             password: self.password()
         }).done(function(data) {
             if (data.userName && data.access_token) {
-                self.setAccessToken(data.access_token);
+                self.setAccessToken(data.access_token,true);
             }
         });
     };
