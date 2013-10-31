@@ -22,7 +22,7 @@ function AppViewModel() {
     var self = this,
         //Routes
         hostUrl = 'http://10.10.4.147',
-        getFilesUrl = /* hostUrl +*/ '/api/Files',
+        getFilesUrl = hostUrl + '/api/Files',
         loginUrl = "/Token";
     
     //properties
