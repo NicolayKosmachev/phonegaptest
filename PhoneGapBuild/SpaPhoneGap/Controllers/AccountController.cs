@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -24,6 +27,8 @@ namespace SpaPhoneGap.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
+
+        private const string FilesFolder = "~/Files";
 
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -46,13 +51,25 @@ namespace SpaPhoneGap.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            
             return new UserInfoViewModel
             {
                 UserName = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
             };
+        }
+
+        private void CreateUserFileFolder(string userName)
+        {
+            var folderPath = HostingEnvironment.MapPath(Path.Combine(FilesFolder, userName));
+
+            if (string.IsNullOrEmpty(folderPath)) return;
+
+            bool isExists = System.IO.Directory.Exists(folderPath);
+
+            if (!isExists)
+                System.IO.Directory.CreateDirectory(folderPath);
         }
 
         // POST api/Account/Logout
@@ -253,22 +270,43 @@ namespace SpaPhoneGap.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                ClaimsIdentity oAuthIdentity = await UserManager.CreateIdentityAsync(user,
-                    OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await UserManager.CreateIdentityAsync(user,
-                    CookieAuthenticationDefaults.AuthenticationType);
+                
+                ClaimsIdentity oAuthIdentity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity cookieIdentity = await UserManager.CreateIdentityAsync(user, CookieAuthenticationDefaults.AuthenticationType);
+
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                CreateUserFileFolder(identity.FindFirstValue(ClaimTypes.Email));
                 Authentication.SignIn(identity);
             }
 
             return Ok();
         }
+
+        //private async Task CreateUserFromExternalIdentity()
+        //{
+        //    ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            
+        //    IdentityUser user = new IdentityUser
+        //    {
+        //        UserName = externalLogin.Email
+        //    };
+
+        //    user.Logins.Add(new IdentityUserLogin
+        //    {
+        //        LoginProvider = externalLogin.LoginProvider,
+        //        ProviderKey = externalLogin.ProviderKey,
+        //    });
+
+        //    await UserManager.CreateAsync(user);
+        //}
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
@@ -276,6 +314,7 @@ namespace SpaPhoneGap.Controllers
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
+            
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
 
             string state;
@@ -323,7 +362,7 @@ namespace SpaPhoneGap.Controllers
 
             IdentityUser user = new IdentityUser
             {
-                UserName = model.UserName
+                UserName = model.UserName,
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -359,12 +398,15 @@ namespace SpaPhoneGap.Controllers
             {
                 UserName = model.UserName
             };
+
             user.Logins.Add(new IdentityUserLogin
             {
                 LoginProvider = externalLogin.LoginProvider,
-                ProviderKey = externalLogin.ProviderKey
+                ProviderKey = externalLogin.ProviderKey,
             });
+
             IdentityResult result = await UserManager.CreateAsync(user);
+
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)
@@ -374,6 +416,8 @@ namespace SpaPhoneGap.Controllers
 
             return Ok();
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {
@@ -426,7 +470,7 @@ namespace SpaPhoneGap.Controllers
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
-
+            
             public IList<Claim> GetClaims()
             {
                 IList<Claim> claims = new List<Claim>();
@@ -436,7 +480,7 @@ namespace SpaPhoneGap.Controllers
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
                 }
-
+                
                 return claims;
             }
 
@@ -464,7 +508,7 @@ namespace SpaPhoneGap.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    UserName = identity.FindFirstValue(ClaimTypes.Email)
                 };
             }
         }

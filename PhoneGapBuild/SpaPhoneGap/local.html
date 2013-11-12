@@ -1,0 +1,26 @@
+﻿
+<!-- ko with: local -->
+<div data-role="content">
+    <a data-role="button" data-inline="true" data-bind="click:login" data-theme="b" href="#page1">
+        Login
+    </a>
+    <a id="checkFiles" data-role="button" data-bind="click:updateFiles" data-inline="true" data-theme="b" href="#page1">
+        Check Files
+    </a>
+    <div id="FilesContainer" data-role="collapsible-set">
+        <div data-role="collapsible">
+            <h3>
+                Your Files
+            </h3>
+
+            <ul data-bind="foreach:files">
+                <li>
+                    <span data-bind="text:name"></span>
+                    <span data-bind="text:location"></span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<!-- /ko -->

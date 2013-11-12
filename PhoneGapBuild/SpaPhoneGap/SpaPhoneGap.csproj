@@ -15,7 +15,7 @@
     <AssemblyName>SpaPhoneGap</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -245,6 +245,9 @@
     <Content Include="Global.asax" />
     <Content Include="icon.png" />
     <Content Include="index.html" />
+    <Content Include="local.html" />
+    <Content Include="login.html" />
+    <Content Include="remote.html" />
     <Content Include="res\icon\android\icon-36-ldpi.png" />
     <Content Include="res\icon\android\icon-48-mdpi.png" />
     <Content Include="res\icon\android\icon-72-hdpi.png" />
@@ -313,6 +316,17 @@
     <Content Include="Scripts\knockout.validation.debug.js" />
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\phoneGapApp\ajaxPrefilters.js" />
+    <Content Include="Scripts\phoneGapApp\app.datamodel.js" />
+    <Content Include="Scripts\phoneGapApp\app.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\local.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\login.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\manage.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\register.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\registerExternal.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\remote.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\userInfo.viewmodel.js" />
+    <Content Include="Scripts\phoneGapApp\_run.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -352,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -374,13 +389,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7768</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/SpaPhoneGap</IISUrl>
+          <IISUrl>http://localhost:7768/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>

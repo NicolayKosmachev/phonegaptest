@@ -32,6 +32,7 @@ namespace SpaPhoneGap.Providers
             _userManagerFactory = userManagerFactory;
         }
 
+
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             using (UserManager<IdentityUser> userManager = _userManagerFactory())
@@ -51,11 +52,11 @@ namespace SpaPhoneGap.Providers
                     CookieAuthenticationDefaults.AuthenticationType);
 
                 AuthenticationProperties properties = CreateProperties(user.UserName);
-                
+
                 AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-                
+
                 context.Validated(ticket);
-                
+
                 context.Request.Context.Authentication.SignIn(cookiesIdentity);
             }
         }
@@ -85,7 +86,7 @@ namespace SpaPhoneGap.Providers
         {
             if (context.ClientId == _publicClientId)
             {
-                Uri expectedRootUri = new Uri(context.Request.Uri, "/");
+                Uri expectedRootUri = new Uri(context.Request.Uri, "/index.html");
 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {

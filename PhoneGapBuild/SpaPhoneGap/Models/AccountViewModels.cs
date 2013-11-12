@@ -32,6 +32,8 @@ namespace SpaPhoneGap.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        public string Email { get; set; }
     }
 
     public class UserLoginInfoViewModel

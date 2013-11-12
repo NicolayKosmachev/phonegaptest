@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace SpaPhoneGap.Controllers
 {
@@ -12,40 +13,21 @@ namespace SpaPhoneGap.Controllers
     {
         public string Name { get; set; }
 
-        public string Location { get; set; }
+        public string Date { get; set; }
     }
 
 
     public class FilesController : ApiController
     {
-        public static List<File> Files = new List<File>(){new File(){Name = "FirstFile",Location = "First Location"},new File(){Name = "SecondFile",Location = "SecondLocation"}};  
+        public static List<File> Files = new List<File>() { new File() { Name = "FirstFile", Date = DateTime.Now.ToShortDateString() }, new File() { Name = "SecondFile", Date = DateTime.Now.ToShortDateString() } };  
 
         // GET api/files
         [Authorize]
-        public List<File> Get()
+        public List<File> GetFiles()
         {
-            return new List<File>() { new File() { Name = "FirstFile" + DateTime.Now, Location = "First Location" }, new File() { Name = "SecondFile" + DateTime.Now, Location = "SecondLocation" } }; ;
-        }
+            var identity = User.Identity.GetUserName();
 
-        // GET api/files/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/files
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/files/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/files/5
-        public void Delete(int id)
-        {
+            return new List<File>() { new File() { Name = "FirstFile" + DateTime.Now + identity, Date = DateTime.Now.ToShortDateString() }, new File() { Name = "SecondFile" + DateTime.Now, Date = DateTime.Now.ToShortDateString() } }; ;
         }
     }
 }

@@ -18,73 +18,127 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="Content/jquery.mobile-1.3.2.min.css" rel="stylesheet" />
-        <link href="Content/jquery.mobile.structure-1.3.2.min.css" rel="stylesheet" />
-        <link href="Content/jquery.mobile.theme-1.3.2.min.css" rel="stylesheet" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div data-role="page" id="page1">
-                  <div data-theme="a" data-role="header">
-                      <h3>
-                          File Manager
-                      </h3>
-                  </div>
-                  <div data-role="content">
-                      <a data-role="button" data-inline="true" data-bind = "click:login" data-theme="b" href="#page1">
-                          Login
-                      </a>
-                      <a id="checkFiles" data-role="button" data-bind = "click:updateFiles" data-inline="true" data-theme="b" href="#page1">
-                          Check Files
-                      </a>
-                      <div id="FilesContainer" data-role="collapsible-set">
-                          <div data-role="collapsible">
-                              <h3>
-                                  Your Files
-                              </h3>
-                              
-                              <ul data-bind="foreach:files">
-                                  <li>
-                                      <span data-bind ="text:name"></span>
-                                      <span data-bind ="text:location"></span>
-                                  </li>
-                              </ul>
-
-                          </div>
-                      </div>
-                  </div>
-                  <div data-theme="a" data-role="footer" data-position="fixed">
-                      <h3>
-                          All rights reserved.
-                      </h3>
-                  </div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Content/jquery.mobile-1.3.2.min.css" rel="stylesheet" />
+    <link href="Content/jquery.mobile.structure-1.3.2.min.css" rel="stylesheet" />
+    <link href="Content/jquery.mobile.theme-1.3.2.min.css" rel="stylesheet" />
+    <title>Hello World</title>
+</head>
+<body>
+    <div data-role="page" id="page1">
+        <div data-theme="a" data-role="header">
+            <h3>
+                File Manager
+            </h3>
         </div>
-        
-        
 
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script src="Scripts/jquery-2.0.3.min.js"></script>
-        <script src="Scripts/jquery.mobile-1.3.2.min.js"></script>
-        <script src="Scripts/knockout-3.0.0.js"></script>
-        <script src="Scripts/knockout.mapping.js"></script>
-        
-        <script src="Scripts/index.js"></script>
-        
+        <!-- ko with: local -->
+        <div data-role="content">
+            <!--<a data-role="button" data-inline="true" data-bind="click:login" data-theme="b" href="#page1">
+                Login
+            </a>
+            <a id="checkFiles" data-role="button" data-bind="click:updateFiles" data-inline="true" data-theme="b" href="#page1">
+                Check Files
+            </a>-->
+            <div id="FilesContainer" data-role="collapsible-set">
+                <div data-role="collapsible">
+                    <h3>
+                        Your Files
+                    </h3>
 
-        <script type="text/javascript">
-            $(function () {
-                var app = new AppViewModel();
+                    <!--<ul data-bind="foreach:files">
+                        <li>
+                            <span data-bind="text:name"></span>
+                            <span data-bind="text:location"></span>
+                        </li>
+                    </ul>-->
 
-                app.initialize();
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko with: remote -->
+        <div data-role="content">
+            <h3>
+                Remote Files
+            </h3>
+            <ul data-bind="foreach:remoteFiles">
+                <li>
+                    <span data-bind="text:name"></span>
+                    <span data-bind="text:date"></span>
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
 
-                ko.applyBindings(app);
-            });
-        </script>
-    </body>
+        <!-- ko with: login -->
+        <h2>Log in</h2>
+
+        <div class="row">
+            <section class="col-md-4" style="float: none; margin: 0 auto;">
+                <h4>Use another service to login.</h4>
+                <hr />
+                <div data-bind="visible: loadingExternalLogin">Loading...</div>
+                <div data-bind="visible: !loadingExternalLogin()">
+                    <div data-bind="visible: !hasExternalLogin()">
+                        <p>
+                            There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                    <form class="form-horizontal" role="form" data-bind="visible: hasExternalLogin">
+                        <p data-bind="foreach: externalLoginProviders">
+                            <button class="btn btn-default" data-role="button" type="submit" data-bind="text: name, attr: { title: 'Log in using your ' + name() + ' account' }, click: login"></button>
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <!-- /ko -->
+
+        <div data-theme="a" data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li>
+                        <a data-bind="click: navigateToLocal" href="#page1" data-theme="" data-icon="">
+                            Local
+                        </a>
+                    </li>
+                    <li>
+                        <a data-bind="if: loggedIn, click: navigateToRemote" href="#page1" data-theme="a" data-icon="">
+                            Remote
+                        </a>
+                        <a data-bind="if: !loggedIn(), click: navigateToLogin" href="#page1" data-theme="a" data-icon="">
+                            Remote
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<script type="text/javascript" src="phonegap.js"></script>-->
+    <script src="Scripts/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/jquery.mobile-1.3.2.min.js"></script>
+    <script src="Scripts/knockout-3.0.0.js"></script>
+    <script src="Scripts/knockout.mapping.js"></script>
+    <script src="Scripts/knockout.validation.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/phoneGapApp/app.datamodel.js"></script>
+    <script src="Scripts/phoneGapApp/app.viewmodel.js"></script>
+    <script src="Scripts/phoneGapApp/local.viewmodel.js"></script>
+    <script src="Scripts/phoneGapApp/login.viewmodel.js"></script>
+    <script src="Scripts/phoneGapApp/remote.viewmodel.js"></script>
+    <script src="Scripts/phoneGapApp/userInfo.viewmodel.js"></script>
+    <script src="Scripts/phoneGapApp/_run.js"></script>
+
+</body>
 </html>

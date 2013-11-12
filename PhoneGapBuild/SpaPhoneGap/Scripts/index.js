@@ -26,7 +26,7 @@ function AppViewModel() {
         loginUrl = hostUrl + "/Token";
     
     //properties
-    self.files =  ko.mapping.fromJS([{name:"test",location:"testlocation"}]);
+    self.files =  ko.mapping.fromJS([{name:"test", location:"testlocation"}]);
     
 
     function getSecurityHeaders() {
