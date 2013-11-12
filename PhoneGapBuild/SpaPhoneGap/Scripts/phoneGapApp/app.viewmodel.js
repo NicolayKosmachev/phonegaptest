@@ -168,6 +168,7 @@
 
     self.onDeviceReady = function () {
         self.initialize();
+        alert("test");
     };
 
     self.initialize = function() {
@@ -205,7 +206,7 @@
                 .fail(function() {
                     self.navigateToLogin();
                 });
-        } else {
+        } else{
             dataModel.getUserInfo()
                 .done(function(data) {
                     if (data.userName) {
