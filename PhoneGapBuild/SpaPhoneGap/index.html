@@ -35,6 +35,15 @@
             <h3>
                 File Manager
             </h3>
+            
+            <div data-bind="if: loggedIn" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right" data-bind="with: user">
+                    <li>
+                        <span class="navbar-text nofloat">Hello, <a href="#" class="navbar-link" data-bind="text: name"></a>!</span>
+                    </li>
+                    <li><a href="#" data-bind="click: logOff">Log off</a></li>
+                </ul>
+            </div>
         </div>
 
         <!-- ko with: local -->
