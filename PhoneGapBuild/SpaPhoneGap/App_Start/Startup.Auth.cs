@@ -17,7 +17,7 @@ namespace SpaPhoneGap
         {
             PublicClientId = "self";
 
-            UserManagerFactory = () => new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+            UserManagerFactory = CreateUserManager;
 
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
@@ -27,6 +27,15 @@ namespace SpaPhoneGap
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true,
             };
+        }
+
+
+        private static UserManager<IdentityUser> CreateUserManager()
+        {
+            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+            userManager.UserValidator = new UserValidator<IdentityUser>(userManager) { AllowOnlyAlphanumericUserNames = false };
+
+            return userManager;
         }
 
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }

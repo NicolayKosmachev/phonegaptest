@@ -1,21 +1,22 @@
 ﻿function AppDataModel() {
     var self = this,
         // Routes
-        addExternalLoginUrl = "/api/Account/AddExternalLogin",
-        changePasswordUrl = "/api/Account/changePassword",
-        loginUrl = "/Token",
-        logoutUrl = "/api/Account/Logout",
-        registerUrl = "/api/Account/Register",
-        registerExternalUrl = "/api/Account/RegisterExternal",
-        removeLoginUrl = "/api/Account/RemoveLogin",
-        setPasswordUrl = "/api/Account/setPassword",
+        hostUrl = "http://10.10.4.147",
+        addExternalLoginUrl = hostUrl + "/api/Account/AddExternalLogin",
+        changePasswordUrl = hostUrl + "/api/Account/changePassword",
+        loginUrl = hostUrl + "/Token",
+        logoutUrl = hostUrl + "/api/Account/Logout",
+        registerUrl =hostUrl + "/api/Account/Register",
+        registerExternalUrl =hostUrl + "/api/Account/RegisterExternal",
+        removeLoginUrl =hostUrl + "/api/Account/RemoveLogin",
+        setPasswordUrl =hostUrl + "/api/Account/setPassword",
         siteUrl = "/index.html",
-        userInfoUrl = "/api/Account/UserInfo",
-        getRemoteFilesUrl = "/api/Files/GetFiles";
+        userInfoUrl = hostUrl + "/api/Account/UserInfo",
+        getRemoteFilesUrl = hostUrl + "/api/Files/GetFiles";
 
     // Route operations
     function externalLoginsUrl(returnUrl, generateState) {
-        return "/api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
+        return hostUrl + "/api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
             "&generateState=" + (generateState ? "true" : "false");
     }
 

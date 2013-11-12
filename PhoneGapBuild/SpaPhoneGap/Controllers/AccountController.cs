@@ -283,7 +283,7 @@ namespace SpaPhoneGap.Controllers
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
-                CreateUserFileFolder(identity.FindFirstValue(ClaimTypes.Email));
+                CreateUserFileFolder(identity.FindFirstValue(ClaimTypes.Name));
                 Authentication.SignIn(identity);
             }
 
@@ -382,10 +382,10 @@ namespace SpaPhoneGap.Controllers
         [Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
