@@ -1,7 +1,7 @@
 ﻿$(function () {
-    app.initialize();
+    //app.initialize();
 
-    //app.initDevice();
+    app.initDevice();
 
    // $("#loginPage").load("login.html");
 
