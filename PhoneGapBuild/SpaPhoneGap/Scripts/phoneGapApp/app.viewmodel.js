@@ -168,7 +168,6 @@
 
     self.onDeviceReady = function () {
         self.initialize();
-        alert("test");
     };
 
     self.initialize = function() {
