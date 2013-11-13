@@ -76,7 +76,7 @@ namespace SpaPhoneGap.Controllers
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType, OAuthDefaults.AuthenticationType);
             return Ok();
         }
 
@@ -334,7 +334,7 @@ namespace SpaPhoneGap.Controllers
                 ExternalLoginViewModel login = new ExternalLoginViewModel
                 {
                     Name = description.Caption,
-                    Url = Url.Route("ExternalLogin", new
+                    Url = new Uri(Request.RequestUri, "/").AbsoluteUri + Url.Route("ExternalLogin", new
                     {
                         provider = description.AuthenticationType,
                         response_type = "token",
