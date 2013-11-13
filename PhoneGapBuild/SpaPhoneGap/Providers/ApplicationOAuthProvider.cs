@@ -87,8 +87,16 @@ namespace SpaPhoneGap.Providers
         {
             if (context.ClientId == _publicClientId)
             {
-                Uri expectedRootUri = new Uri(context.Request.Uri, "/index.html");
+                var referer = context.Request.Headers["Referer"];
 
+                var returnUrl = context.Request.Query != null
+                    ? context.Request.Query.Get("redirect_uri") ?? null
+                    : null;
+
+                var expectedUri = referer != null ? new Uri(referer) : returnUrl != null ? new Uri(returnUrl) : context.Request.Uri;
+
+                Uri expectedRootUri = new Uri(expectedUri, "/index.html");
+                
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {
                     context.Validated();
