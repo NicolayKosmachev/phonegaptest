@@ -91,7 +91,13 @@ function ExternalLoginProviderViewModel(app, data) {
         // IE doesn't reliably persist sessionStorage when navigating to another URL. Move sessionStorage temporarily
         // to localStorage to work around this problem.
         app.archiveSessionStorageToLocalStorage();
-        window.location = data.url;
+        //window.location = data.url;
+        
+        var ref = window.open(data.url, '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
+        ref.addEventListener('loadstop', function (event) { alert('stop: ' + event.url); });
+        ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
+        ref.addEventListener('exit', function (event) { alert(event.type); });
     };
 }
 
