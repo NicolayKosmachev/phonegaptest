@@ -339,7 +339,7 @@ namespace SpaPhoneGap.Controllers
                         provider = description.AuthenticationType,
                         response_type = "token",
                         client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.Headers.Referrer, returnUrl).AbsoluteUri,
+                        redirect_uri = new Uri(Request.Headers.Referrer ?? Request.RequestUri, returnUrl).AbsoluteUri,
                         state = state
                     }),
                     State = state

@@ -168,6 +168,8 @@
 
     self.onDeviceReady = function () {
         self.initialize();
+        
+        window.plugins.childBrowser.showWebPage('http://www.google.com');
     };
 
     self.initialize = function() {

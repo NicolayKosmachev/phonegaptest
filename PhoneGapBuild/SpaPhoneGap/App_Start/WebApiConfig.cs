@@ -17,7 +17,7 @@ namespace SpaPhoneGap
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            var cors = new EnableCorsAttribute("http://localhost:7768", "*", "*");
+            var cors = new EnableCorsAttribute("http://localhost", "*", "*");
 
             config.EnableCors(cors);
             // Use camel case for JSON data.
