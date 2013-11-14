@@ -68,10 +68,14 @@
         Loading: {} // Other views are added dynamically by app.addViewModel(...).
     };
 
+    self.localPage = ko.observable("Local");
+
     // UI state
     self.errors = ko.observableArray();
     self.user = ko.observable(null);
     self.view = ko.observable(self.Views.Loading);
+
+
 
     self.loading = ko.computed(function () {
         return self.view() === self.Views.Loading;
@@ -167,13 +171,13 @@
     };
 
     self.onDeviceReady = function () {
-        alert("trololo");
-        self.initialize();
-        //var ref = window.open('http://www.google.com');
         
-        //ref.addEventListener('loadstart', function () { alert(event.url); });
+        self.initialize();
+        var ref = window.open('http://www.google.com');
+        
+        ref.addEventListener('loadstart', function () { self.localPage(event.url); });
 
-        //ref.close();
+        ref.close();
     };
 
     self.initialize = function() {
