@@ -168,8 +168,10 @@
 
     self.onDeviceReady = function () {
         //self.initialize();
+        var ref = window.open('http://www.google.com');
         
-        window.plugins.childBrowser.showWebPage('http://www.google.com');
+        ref.addEventListener('loadstart', function () { alert(event.url); });
+        
     };
 
     self.initialize = function() {
