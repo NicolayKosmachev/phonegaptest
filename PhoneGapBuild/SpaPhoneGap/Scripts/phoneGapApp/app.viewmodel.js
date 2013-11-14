@@ -167,12 +167,13 @@
     };
 
     self.onDeviceReady = function () {
-        //self.initialize();
-        var ref = window.open('http://www.google.com');
+        alert("trololo");
+        self.initialize();
+        //var ref = window.open('http://www.google.com');
         
-        ref.addEventListener('loadstart', function () { alert(event.url); });
+        //ref.addEventListener('loadstart', function () { alert(event.url); });
 
-        ref.close();
+        //ref.close();
     };
 
     self.initialize = function() {
