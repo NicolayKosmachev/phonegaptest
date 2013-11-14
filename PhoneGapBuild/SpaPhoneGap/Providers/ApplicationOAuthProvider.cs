@@ -95,7 +95,7 @@ namespace SpaPhoneGap.Providers
 
                 var expectedUri = referer != null ? new Uri(referer) : returnUrl != null ? new Uri(returnUrl) : context.Request.Uri;
 
-                Uri expectedRootUri = new Uri(expectedUri, "/index.html");
+                Uri expectedRootUri = new Uri(expectedUri, "/access_token.html");
                 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {

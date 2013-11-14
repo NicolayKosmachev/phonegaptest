@@ -96,12 +96,19 @@ function ExternalLoginProviderViewModel(app, data) {
         if (startIndex > 0) {
 
             var hashIndex = startIndex + length;
+
+            alert("calculatedindex:" + hashIndex);
+
+            alert("realIndex:" + url.indexOf("#"));
             
             if (url.indexOf("#") == hashIndex) {
                 var fragment = app.parseQueryString(url.substr(hashIndex + 1));
-                
-                if (typeof(fragment.access_token) !== "undefined") {
+
+                alert(fragment);
+
+                if (typeof (fragment.access_token) !== "undefined") {
                     ref.close();
+                    alert(window.location);
                     window.location = window.location + "#access_token=" + fragment.access_token;
                 }
             }
