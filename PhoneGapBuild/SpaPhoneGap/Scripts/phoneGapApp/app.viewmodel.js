@@ -167,7 +167,7 @@
     };
 
     self.onDeviceReady = function () {
-        self.initialize();
+        //self.initialize();
         
         window.plugins.childBrowser.showWebPage('http://www.google.com');
     };
