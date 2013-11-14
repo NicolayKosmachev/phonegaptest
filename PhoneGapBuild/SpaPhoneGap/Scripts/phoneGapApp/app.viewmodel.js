@@ -173,11 +173,9 @@
     self.onDeviceReady = function () {
         
         self.initialize();
-        var ref = window.open('http://www.google.com');
+        var ref = window.open('http://www.google.com', '_blank', 'location=yes');
         
-        ref.addEventListener('loadstart', function () { self.localPage(event.url); });
-
-        ref.close();
+        ref.addEventListener('loadstart', function () { alert(event.url); });
     };
 
     self.initialize = function() {
