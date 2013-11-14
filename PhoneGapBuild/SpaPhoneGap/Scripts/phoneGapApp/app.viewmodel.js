@@ -171,7 +171,8 @@
         var ref = window.open('http://www.google.com');
         
         ref.addEventListener('loadstart', function () { alert(event.url); });
-        
+
+        ref.close();
     };
 
     self.initialize = function() {
