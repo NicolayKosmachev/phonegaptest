@@ -125,7 +125,11 @@ function ExternalLoginProviderViewModel(app, data) {
         //window.location = data.url;
         
         var ref = window.open(data.url, '_blank', 'location=yes');
-        ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
+        ref.addEventListener('loadstart', function (event) {
+            alert(self);
+            self.checkAccessToken(event.url, ref);
+        });
+        
         ref.addEventListener('loadstop', function (event) {
             alert(self);
             self.checkAccessToken(event.url, ref);
