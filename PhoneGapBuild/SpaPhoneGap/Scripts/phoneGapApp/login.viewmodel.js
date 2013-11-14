@@ -84,6 +84,30 @@ function ExternalLoginProviderViewModel(app, data) {
     // Data
     self.name = ko.observable(data.name);
 
+
+    self.checkAccessToken = function(url, ref) {
+
+        var search = "access_token.html";
+
+        var length = search.length();
+
+        var startIndex = url.indexOf("access_token.html", 0);
+            
+        if (startIndex > 0) {
+
+            var hashIndex = startIndex + length;
+            
+            if (url.indexOf("#") == hashIndex) {
+                var fragment = app.parseQueryString(url.substr(hashIndex + 1));
+                
+                if (typeof(fragment.access_token) !== "undefined") {
+                    ref.close();
+                    window.location = window.location + "#access_token=" + fragment.access_token;
+                }
+            }
+        }
+    };
+
     // Operations
     self.login = function () {
         sessionStorage["state"] = data.state;
@@ -95,7 +119,7 @@ function ExternalLoginProviderViewModel(app, data) {
         
         var ref = window.open(data.url, '_blank', 'location=yes');
         ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
-        ref.addEventListener('loadstop', function (event) { alert('stop: ' + event.url); });
+        ref.addEventListener('loadstop', function (event) { self.checkAccessToken(event.url, ref); });
         ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
         ref.addEventListener('exit', function (event) { alert(event.type); });
     };

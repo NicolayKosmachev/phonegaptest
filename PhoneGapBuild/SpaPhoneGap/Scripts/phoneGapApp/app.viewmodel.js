@@ -11,6 +11,10 @@
         }
     }
 
+    self.getFragment = getFragment;
+
+    self.parseQueryString = parseQueryString;
+
     function getFragment() {
         if (window.location.hash.indexOf("#") === 0) {
             return parseQueryString(window.location.hash.substr(1));

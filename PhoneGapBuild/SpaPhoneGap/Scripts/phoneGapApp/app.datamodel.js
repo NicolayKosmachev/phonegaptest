@@ -10,7 +10,7 @@
         registerExternalUrl =hostUrl + "/api/Account/RegisterExternal",
         removeLoginUrl =hostUrl + "/api/Account/RemoveLogin",
         setPasswordUrl =hostUrl + "/api/Account/setPassword",
-        siteUrl = "/index.html",
+        siteUrl = "/access_token.html",
         userInfoUrl = hostUrl + "/api/Account/UserInfo",
         getRemoteFilesUrl = hostUrl + "/api/Files/GetFiles";
 
