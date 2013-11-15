@@ -11,9 +11,9 @@
         }
     }
 
-    self.getFragment = getFragment;
+    //self.getFragment = getFragment;
 
-    self.parseQueryString = parseQueryString;
+    //self.parseQueryString = parseQueryString;
 
     function getFragment() {
         if (window.location.hash.indexOf("#") === 0) {

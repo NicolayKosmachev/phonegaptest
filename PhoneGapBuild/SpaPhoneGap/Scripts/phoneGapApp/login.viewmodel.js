@@ -85,35 +85,35 @@ function ExternalLoginProviderViewModel(app, data) {
     self.name = ko.observable(data.name);
 
 
-    self.checkAccessToken = function(url, ref) {
+    //self.checkAccessToken = function(url, ref) {
 
-        var search = "access_token.html";
+    //    var search = "access_token.html";
 
-        var length = search.length();
+    //    var length = search.length();
 
-        var startIndex = url.indexOf("access_token.html", 0);
+    //    var startIndex = url.indexOf("access_token.html", 0);
             
-        if (startIndex > 0) {
+    //    if (startIndex > 0) {
 
-            var hashIndex = startIndex + length;
+    //        var hashIndex = startIndex + length;
 
-            alert("calculatedindex:" + hashIndex);
+    //        alert("calculatedindex:" + hashIndex);
 
-            alert("realIndex:" + url.indexOf("#"));
+    //        alert("realIndex:" + url.indexOf("#"));
             
-            if (url.indexOf("#") == hashIndex) {
-                var fragment = app.parseQueryString(url.substr(hashIndex + 1));
+    //        if (url.indexOf("#") == hashIndex) {
+    //            var fragment = app.parseQueryString(url.substr(hashIndex + 1));
 
-                alert(fragment);
+    //            alert(fragment);
 
-                if (typeof (fragment.access_token) !== "undefined") {
-                    ref.close();
-                    alert(window.location);
-                    window.location = window.location + "#access_token=" + fragment.access_token;
-                }
-            }
-        }
-    };
+    //            if (typeof (fragment.access_token) !== "undefined") {
+    //                ref.close();
+    //                alert(window.location);
+    //                window.location = window.location + "#access_token=" + fragment.access_token;
+    //            }
+    //        }
+    //    }
+    //};
 
     // Operations
     self.login = function () {
