@@ -125,6 +125,7 @@ function ExternalLoginProviderViewModel(app, data) {
         //window.location = data.url;
         
         var ref = window.open("http://google.com", '_blank', 'location=yes');
+
         ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
 
         //ref.addEventListener('loadstop', function (event) {

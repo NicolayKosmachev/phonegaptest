@@ -24,7 +24,7 @@
   <feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.InAppBrowser" />
   </feature>
-  <!--<gap:plugin name="org.apache.cordova.inappbrowser" />-->
+  <gap:plugin name="org.apache.cordova.inappbrowser" />
   <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
