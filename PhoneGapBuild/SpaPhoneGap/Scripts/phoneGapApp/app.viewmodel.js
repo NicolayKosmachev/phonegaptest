@@ -177,7 +177,7 @@
     self.onDeviceReady = function () {
         alert("test");
         try {
-            var ref = window.open('http://myloginapp.com', '_blank', 'location=no');
+            var ref = window.open('http://google.com', '_blank', 'location=no');
         } catch(err) {
             alert(err);
         }
