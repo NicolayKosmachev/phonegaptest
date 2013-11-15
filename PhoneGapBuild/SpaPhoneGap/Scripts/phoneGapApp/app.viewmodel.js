@@ -176,8 +176,12 @@
 
     self.onDeviceReady = function () {
         alert("test");
-        var ref = window.open('http://apache.org', '_blank');
-        ref.show();
+        try {
+            var ref = window.open('http://myloginapp.com', '_blank', 'location=no');
+        } catch(err) {
+            alert(err);
+        }
+        //ref.show();
         //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
