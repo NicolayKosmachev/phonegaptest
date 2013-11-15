@@ -177,9 +177,8 @@
     self.onDeviceReady = function () {
         alert("test");
         try {
-            var ref = window.open('http://google.com', '_blank', 'location=no');
+            var ref = window.open('http://google.com', '_blank', 'location=yes');
             ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
-            ref.close();
         } catch (err) {
             
             alert(err);
