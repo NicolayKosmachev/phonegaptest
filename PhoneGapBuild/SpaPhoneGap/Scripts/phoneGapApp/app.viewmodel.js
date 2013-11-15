@@ -188,7 +188,7 @@
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
 
-        var ref = window.open('http://www.google.com');
+        var ref = window.open('http://www.google.com', '_blank', 'location=yes');
 
         ref.addEventListener('loadstart', function () { alert(event.url); });
         //self.initialize();
