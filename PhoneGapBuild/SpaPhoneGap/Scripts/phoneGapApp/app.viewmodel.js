@@ -178,11 +178,12 @@
         alert("test");
         try {
             var ref = window.open('http://google.com', '_blank', 'location=no');
+            ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         } catch(err) {
             alert(err);
         }
         //ref.show();
-        //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
+        
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
 
