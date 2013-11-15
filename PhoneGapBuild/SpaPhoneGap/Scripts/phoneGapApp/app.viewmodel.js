@@ -175,21 +175,23 @@
     };
 
     self.onDeviceReady = function () {
-        alert("test");
-        try {
-            var ref = window.open('http://google.com', '_blank', 'location=yes');
-            ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
-        } catch (err) {
+        //alert("test");
+        //try {
+        //    var ref = window.open('http://google.com', '_blank', 'location=yes');
+        //    ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
+        //} catch (err) {
             
-            alert(err);
-        }
+        //    alert(err);
+        //}
         //ref.show();
         
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
 
+        var ref = window.open('http://www.google.com');
 
-        self.initialize();
+        ref.addEventListener('loadstart', function () { alert(event.url); });
+        //self.initialize();
     };
 
     self.initialize = function() {
