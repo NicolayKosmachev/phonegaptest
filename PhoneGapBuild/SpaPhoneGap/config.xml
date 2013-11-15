@@ -22,7 +22,7 @@
     -->
   <feature name="http://api.phonegap.com/1.0/device" />
   <feature name="InAppBrowser">
-    <param name="android-package" value="org.apache.cordova.InAppBrowser" />
+    <param name="android-package" value="org.apache.cordova.inappbrowser" />
   </feature>
   
 
@@ -72,7 +72,7 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-  <gap:plugin name="org.apache.cordova.inappbrowser" />
+  
   <!-- Define app icon for each platform. -->
   <icon src="icon.png" />
   <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
