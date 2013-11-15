@@ -124,18 +124,24 @@ function ExternalLoginProviderViewModel(app, data) {
         app.archiveSessionStorageToLocalStorage();
         //window.location = data.url;
         
-        var ref = window.open("http://google.com", '_blank', 'location=yes');
+        //var ref = window.open("http://google.com", '_blank', 'location=yes');
 
-        ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
+        //ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
 
-        //ref.addEventListener('loadstop', function (event) {
-        //    alert(self);
-        //    alert(ref);
-        //    self.checkAccessToken(event.url, ref);
-        //});
+        ////ref.addEventListener('loadstop', function (event) {
+        ////    alert(self);
+        ////    alert(ref);
+        ////    self.checkAccessToken(event.url, ref);
+        ////});
         
-        ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
-        ref.addEventListener('exit', function (event) { alert(event.type); });
+        //ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
+        //ref.addEventListener('exit', function (event) { alert(event.type); });
+        
+        var ref = window.open('http://apache.org', '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
+        ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
+        ref.addEventListener('exit', function () { alert(event.type); });
+
     };
 }
 
