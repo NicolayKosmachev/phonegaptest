@@ -21,9 +21,10 @@
         The "device" permission is required for the 'deviceready' event.
     -->
   <feature name="http://api.phonegap.com/1.0/device" />
-  <feature name="InAppBrowser">
+  
+  <!--<feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.InAppBrowser" />
-  </feature>
+  </feature>-->
   
 
   <!--
@@ -36,7 +37,7 @@
   <gap:platform name="android" />
 
   <!-- Customize your app and platform with the preference element. -->
-  <preference name="phonegap-version"           value="2.9.0" />
+  <preference name="phonegap-version"           value="3.0.0" />
   <!-- all: current version of PhoneGap -->
   <preference name="orientation"                value="default" />
   <!-- all: default means both landscape and portrait are enabled -->
