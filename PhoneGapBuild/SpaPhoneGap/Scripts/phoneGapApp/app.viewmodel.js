@@ -190,7 +190,7 @@
 
         var ref = window.open('http://www.google.com', '_blank', 'location=yes');
 
-        ref.addEventListener('loadstart', function () { alert(event.url); });
+        ref.addEventListener('loadstart', function (event) { alert(event.url); });
         //self.initialize();
     };
 
