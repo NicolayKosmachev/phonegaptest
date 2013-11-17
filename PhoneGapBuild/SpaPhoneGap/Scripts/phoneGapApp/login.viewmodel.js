@@ -85,35 +85,42 @@ function ExternalLoginProviderViewModel(app, data) {
     self.name = ko.observable(data.name);
 
 
-    //self.checkAccessToken = function(url, ref) {
+    self.checkAccessToken = function(url, ref) {
 
-    //    var search = "access_token.html";
+        alert("trololo");
 
-    //    var length = search.length();
+        var search = "access_token.html";
 
-    //    var startIndex = url.indexOf("access_token.html", 0);
+        var length = search.length;
+
+        alert(length);
+
+        var startIndex = url.indexOf("access_token.html", 0);
+        
+        alert(startIndex);
+
+        if (startIndex > 0) {
+
+            var hashIndex = startIndex + length;
+
+            alert("calculatedindex:" + hashIndex);
+
+            alert("realIndex:" + url.indexOf("#"));
             
-    //    if (startIndex > 0) {
+            if (url.indexOf("#") == hashIndex) {
+                var fragment = app.parseQueryString(url.substr(hashIndex + 1));
 
-    //        var hashIndex = startIndex + length;
+                alert(fragment);
 
-    //        alert("calculatedindex:" + hashIndex);
-
-    //        alert("realIndex:" + url.indexOf("#"));
-            
-    //        if (url.indexOf("#") == hashIndex) {
-    //            var fragment = app.parseQueryString(url.substr(hashIndex + 1));
-
-    //            alert(fragment);
-
-    //            if (typeof (fragment.access_token) !== "undefined") {
-    //                ref.close();
-    //                alert(window.location);
-    //                window.location = window.location + "#access_token=" + fragment.access_token;
-    //            }
-    //        }
-    //    }
-    //};
+                if (typeof (fragment.access_token) !== "undefined") {
+                    ref.close();
+                    alert(window.location);
+                    window.location.hash = "#access_token=" + fragment.access_token;
+                    location.reload();
+                }
+            }
+        }
+    };
 
     // Operations
     self.login = function () {
@@ -124,23 +131,15 @@ function ExternalLoginProviderViewModel(app, data) {
         app.archiveSessionStorageToLocalStorage();
         //window.location = data.url;
         
-        //var ref = window.open("http://google.com", '_blank', 'location=yes');
+        var ref = window.open(data.url, '_blank', 'location=yes');
 
-        //ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
+        ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
 
-        ////ref.addEventListener('loadstop', function (event) {
-        ////    alert(self);
-        ////    alert(ref);
-        ////    self.checkAccessToken(event.url, ref);
-        ////});
-        
-        //ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
-        //ref.addEventListener('exit', function (event) { alert(event.type); });
-        
-        var ref = window.open('http://apache.org', '_blank', 'location=yes');
-        ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
-        ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
-        ref.addEventListener('exit', function () { alert(event.type); });
+        ref.addEventListener('loadstop', function (event) {
+
+            self.checkAccessToken(event.url, ref);
+            alert("afterCall");
+        });        
 
     };
 }

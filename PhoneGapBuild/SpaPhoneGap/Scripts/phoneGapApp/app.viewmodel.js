@@ -11,9 +11,9 @@
         }
     }
 
-    //self.getFragment = getFragment;
+    self.getFragment = getFragment;
 
-    //self.parseQueryString = parseQueryString;
+    self.parseQueryString = parseQueryString;
 
     function getFragment() {
         if (window.location.hash.indexOf("#") === 0) {
@@ -175,23 +175,7 @@
     };
 
     self.onDeviceReady = function () {
-        //alert("test");
-        //try {
-        //    var ref = window.open('http://google.com', '_blank', 'location=yes');
-        //    ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
-        //} catch (err) {
-            
-        //    alert(err);
-        //}
-        //ref.show();
-        
-        //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
-        //ref.addEventListener('exit', function () { alert(event.type); });
-
-        var ref = window.open('http://www.google.com', '_blank', 'location=yes');
-
-        ref.addEventListener('loadstart', function (event) { alert(event.url); });
-        //self.initialize();
+        self.initialize();
     };
 
     self.initialize = function() {
@@ -200,13 +184,14 @@
             externalAccessToken, externalError, loginUrl;
 
         self.restoreSessionStorageFromLocalStorage();
-        verifyStateMatch(fragment);
-
+        //verifyStateMatch(fragment);
+        alert(window.location.hash);
        if (typeof(fragment.error) !== "undefined") {
             cleanUpLocation();
             self.navigateToLogin();
             self.errors.push("External login failed.");
-        } else if (typeof(fragment.access_token) !== "undefined") {
+       } else if (typeof (fragment.access_token) !== "undefined") {
+            alert(fragment.access_token);
             cleanUpLocation();
             dataModel.getUserInfo(fragment.access_token)
                 .done(function(data) {

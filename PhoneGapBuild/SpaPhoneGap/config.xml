@@ -24,9 +24,9 @@
   <!--<feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.InAppBrowser" />
   </feature>-->
-  <!--<feature name="InAppBrowser">
+  <feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.InAppBrowser" />
-  </feature>-->
+  </feature>
 
   <!--
         If you do not want any permissions to be added to your app, add the

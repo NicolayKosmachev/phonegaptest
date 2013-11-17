@@ -1,7 +1,7 @@
 ﻿function AppDataModel() {
     var self = this,
         // Routes
-        hostUrl = "http://10.10.4.147",
+        hostUrl = "http://192.168.1.2/",
         addExternalLoginUrl = hostUrl + "/api/Account/AddExternalLogin",
         changePasswordUrl = hostUrl + "/api/Account/changePassword",
         loginUrl = hostUrl + "/Token",
